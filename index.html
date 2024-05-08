@@ -3,26 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Multiplication Calculator</title>
+    <title>Excel Data Operation</title>
 </head>
 <body>
-    <h1>Multiplication Calculator</h1>
-    <label for="number">Enter a number:</label>
-    <input type="number" id="number" min="0">
-    <button onclick="multiplyByTen()">Calculate</button>
+    <h1>Excel Data Operation</h1>
+    <label for="inputNumber">Enter a number:</label>
+    <input type="number" id="inputNumber">
+    <button onclick="performOperation()">Calculate</button>
     <p id="result"></p>
 
     <script>
-        function multiplyByTen() {
-            // Get the input value
-            var inputNumber = document.getElementById("number").value;
-            
-            // Multiply the input value by 10
-            var result = inputNumber * 10;
-            
-            // Display the result
-            document.getElementById("result").innerHTML = "Result: " + result;
+        function performOperation() {
+            var inputNumber = parseFloat(document.getElementById("inputNumber").value);
+
+            // Load the Excel file
+            var reader = new FileReader();
+            reader.onload = function(event) {
+                var data = new Uint8Array(event.target.result);
+                var workbook = XLSX.read(data, {type: 'array'});
+
+                // Assuming the first sheet contains the data
+                var sheetName = workbook.SheetNames[0];
+                var sheet = workbook.Sheets[sheetName];
+
+                // Get the cell value from the Excel file (assuming it's in A1)
+                var cellValue = sheet['A1'].v;
+
+                // Perform the operation
+                var result = inputNumber * cellValue;
+
+                // Display the result
+                document.getElementById("result").innerText = "Result: " + result;
+            };
+            reader.readAsArrayBuffer(Book1.xlsx);
         }
     </script>
+    
+    <!-- Include the XLSX library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
 </body>
 </html>
+
