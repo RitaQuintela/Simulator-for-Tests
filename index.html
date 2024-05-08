@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multiplication Calculator</title>
+</head>
+<body>
+    <h1>Multiplication Calculator</h1>
+    <label for="number">Enter a number:</label>
+    <input type="number" id="number" min="0">
+    <button onclick="multiplyByTen()">Calculate</button>
+    <p id="result"></p>
+
+    <script>
+        function multiplyByTen() {
+            // Get the input value
+            var inputNumber = document.getElementById("number").value;
+            
+            // Multiply the input value by 10
+            var result = inputNumber * 10;
+            
+            // Display the result
+            document.getElementById("result").innerHTML = "Result: " + result;
+        }
+    </script>
+</body>
+</html>
